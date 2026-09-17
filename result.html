@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>診断結果｜不動産投資 収入シミュレーション診断</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 診断結果ページ。最上部に画像、その下に結果の内容（これから作成）。スマホ専用・PCでは中央にスマホ幅で表示 */
+:root{
+  --navy:#123F74;
+  --blue:#1B64AD;
+  --sky:#E4F1FF;
+  --brown:#A05634;
+  --muted:#6B7280;
+  --text:#2B2F36;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;color:var(--text);background:#DDE3EA;line-height:1.7;font-size:16px}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+.page{max-width:480px;min-height:100vh;margin:0 auto;background:var(--sky);display:flex;flex-direction:column}
+.fv{position:relative}
+.fv__img{width:100%;height:auto}
+/* 画像の「400」（1080×935 基準で x312〜673 / y698〜883）を同じ背景色で覆い、数字を数え上げる */
+.rslot{position:absolute;left:28.912%;top:74.717%;width:33.472%;height:19.765%;background:#FFFFFF;display:flex;align-items:center;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;font-weight:900;font-size:min(18.43vw,88.5px);line-height:1;color:#031D48;overflow:visible;padding-left:.556%;padding-right:.278%}
+/* 画像の数字とぴったり重なるよう、実測値から算出した補正。
+   min-width:0 がないと flex の桁が文字幅まで広がり、3桁目が「万円」に重なる */
+.rslot span{flex:1;min-width:0;display:block;text-align:center;transform:scaleX(.951)}
+.rslot span.is-stop{animation:rslotPop .3s ease-out}
+@keyframes rslotPop{0%{transform:scaleX(.951) translateY(-.076em)}60%{transform:scaleX(.951) translateY(.02em)}100%{transform:scaleX(.951)}}
+@media (prefers-reduced-motion:reduce){.rslot span.is-stop{animation:none}}
+.fv__ph{aspect-ratio:1080/1350;display:grid;place-items:center;align-content:center;gap:6px;background:repeating-linear-gradient(45deg,#D9E7F6 0 14px,#E6EFF9 14px 28px);border:2px dashed #93B3D6;color:var(--navy);font-weight:700;font-size:17px;text-align:center;padding:16px}
+.fv__ph small{font-size:12px;font-weight:500;color:var(--muted)}
+
+
+.section-img{width:100%;height:auto}
+
+/* 画像の中に描かれた「プレゼントを受け取る」ボタンの上に、光が走る演出を重ねる。
+   位置は画像を実測して算出（cta: 1448×1086 の x62〜1385/y762〜1003、present: 1080×1476 の x41〜1036/y1179〜1392） */
+.ctaimg{position:relative;font-size:0}
+/* ボタン部分だけを画像から切り出して重ね、飛び出る動き＋光の帯＋影を付ける。
+   background-size / position は「元画像の中でボタンが占める位置」から算出（下の画像とぴったり重なる） */
+.shine{position:absolute;overflow:hidden;border-radius:999px;pointer-events:none;background-repeat:no-repeat;box-shadow:0 10px 18px rgba(18,32,64,.34),0 3px 6px rgba(18,32,64,.26);animation:btnPop 1.8s ease-in-out infinite;will-change:transform}
+.shine::before{content:"";position:absolute;top:-25%;bottom:-25%;left:-35%;width:22%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.75),rgba(255,255,255,0));transform:skewX(-18deg);animation:shineSweep 2.8s ease-in-out infinite}
+@keyframes shineSweep{0%{left:-35%}55%,100%{left:115%}}
+@keyframes btnPop{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+.shine--cta{left:4.282%;top:70.166%;width:91.436%;height:22.284%;background-image:url(assets/result-cta.jpg?v=2);background-size:109.37% auto;background-position:50% 90.28%}
+.shine--present{left:3.796%;top:79.878%;width:92.222%;height:14.499%;background-image:url(assets/result-present.jpg);background-size:108.43% auto;background-position:48.81% 93.42%}
+@media (prefers-reduced-motion:reduce){.shine{animation:none}.shine::before{animation:none;opacity:0}}
+
+.footer{background:#0E2A4D;color:#C9D6E6;font-size:11px;padding:16px 16px calc(16px + env(safe-area-inset-bottom));text-align:center}
+.footer p{margin:0}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 最上部の画像。共有いただいた画像を assets/result-fv.jpg として置けばそのまま表示されます -->
+  <div class="fv">
+    <img class="fv__img" src="assets/result-fv.jpg?v=2" width="1080" height="935" fetchpriority="high" alt="不動産投資 収入シミュレーション診断 診断結果 あなたの目指せる収入は約400万円" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+    <div class="fv__ph" hidden>診断結果ページの画像がここに入ります<small>共有いただいた画像をそのまま表示します</small></div>
+    <div class="rslot" aria-hidden="true"><span>4</span><span>0</span><span>0</span></div>
+  </div>
+
+  <!-- プレゼント案内の画像（上から2枚目） -->
+  <div class="ctaimg">
+    <img class="section-img" src="assets/result-cta.jpg?v=2" width="1448" height="1086" loading="lazy" alt="診断回答者限定で、あなたの目指せる収入を叶える不動産投資ガイドブックセットを無料プレゼント！ 完全無料 プレゼントを受け取る">
+    <span class="shine shine--cta" aria-hidden="true"></span>
+  </div>
+
+  <!-- 診断コメントの画像（上から3枚目） -->
+  <img class="section-img" src="assets/result-text.png?v=2" width="1080" height="600" loading="lazy" alt="コメント。現在のあなたの収入や資産状況を踏まえると、不動産投資を活用して資産形成を目指すことが可能です。不動産投資は、正しい知識を身につけて計画的に取り組むことで、資産形成の大きな一歩になります。まずは、不動産投資の仕組みやリスクについて学ぶことから始めてみましょう！">
+
+  <!-- おすすめ資料の画像 -->
+  <img class="section-img" src="assets/result-osusume.jpg?v=2" width="1080" height="1476" loading="lazy" alt="あなたにおすすめの資料はこちら 漫画で分かる不動産投資ガイドブック。不動産投資の基礎から、リスク・物件選び・出口戦略までをマンガでやさしく解説。はじめての方でも、資産形成に必要な知識を楽しく学べます。">
+
+  <!-- プレゼント（診断回答者限定）の画像 -->
+  <div class="ctaimg">
+    <img class="section-img" src="assets/result-present.jpg" width="1080" height="1476" loading="lazy" alt="診断回答者限定 上記資料を含む不動産投資ガイドブックセットをプレゼント">
+    <span class="shine shine--present" aria-hidden="true"></span>
+  </div>
+
+  <footer class="footer"><p>&copy; 運営会社名</p></footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // 診断ページ（index.html）の回答は sessionStorage の 'fudosan_diagnosis' に入っている。
+  // 画面には出さないが、金額の計算などに使えるよう読み込んでおく。
+  var answers = null;
+  try { answers = JSON.parse(sessionStorage.getItem('fudosan_diagnosis') || 'null'); } catch (_) { answers = null; }
+  window.__diagnosis = answers;
+})();
+
+// ===== 画像の「400」を、数字が増えていくアニメーションで表示 =====
+(function () {
+  'use strict';
+
+  // 表示する金額（万円）。桁数を変えれば枠内の桁数も変わる
+  var AMOUNT = '400';
+  // 増え終わるまでの時間（ミリ秒）と、表示してから動き出すまでの待ち（0ならすぐ動き出す）
+  var DURATION = 1800, DELAY = 0;
+
+  var box = document.querySelector('.rslot');
+  if (!box) return;
+
+  var keta = AMOUNT.length;
+  var target = parseInt(AMOUNT, 10);
+
+  box.innerHTML = '';
+  var cells = [];
+  for (var i = 0; i < keta; i++) {
+    var span = document.createElement('span');
+    span.textContent = '0';
+    box.appendChild(span);
+    cells.push(span);
+  }
+
+  function render(value) {
+    var s = String(value);
+    while (s.length < keta) s = '0' + s;
+    for (var i = 0; i < keta; i++) cells[i].textContent = s.charAt(i);
+  }
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { render(target); return; }
+
+  var done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    render(target);
+    cells.forEach(function (cell) { cell.classList.add('is-stop'); });
+  }
+
+  var startedAt = null;
+  function frame(now) {
+    if (done) return;
+    if (startedAt === null) startedAt = now;
+    var t = Math.min(1, (now - startedAt) / DURATION);
+    // 最初は一気に増えて、最後はゆっくり止まる
+    var eased = t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    render(Math.round(target * eased));
+    if (t < 1) requestAnimationFrame(frame);
+    else finish();
+  }
+
+  setTimeout(function () { requestAnimationFrame(frame); }, DELAY);
+  // 裏のタブで開かれた等で描画が止まっていた場合でも、最後は必ず金額を表示する
+  setTimeout(finish, DELAY + DURATION + 1500);
+})();
+</script>
+</body>
+</html>

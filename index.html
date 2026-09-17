@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>不動産投資 収入シミュレーション診断｜かんたん1分</title>
+<meta name="description" content="8つの質問に答えるだけ。不動産投資であなたが目指せる収入をかんたん1分で診断します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!-- FVの動く数字に使う明朝体。使う文字（?と0-9）だけを読み込むので軽く、確実に適用される -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700&text=%3F0123456789&display=swap" rel="stylesheet">
+<!-- 設問の見出し（日本語）に使う明朝体 -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* スマホ専用。PCで開いたときは中央にスマホ幅で表示する */
+:root{
+  --navy:#123F74;
+  --blue:#1B64AD;
+  --blue-2:#267CB3;
+  --sky:#E4F1FF;
+  --orange:#EE7C2B;
+  --orange-d:#C9611A;
+  --brown:#A05634;
+  --yellow:#FFE360;
+  --green:#2FA58F;
+  --text:#2B2F36;
+  --muted:#6B7280;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;color:var(--text);background:#DDE3EA;line-height:1.7;font-size:16px}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+em{font-style:normal}
+
+.page{max-width:480px;min-height:100vh;margin:0 auto;background:var(--sky);display:flex;flex-direction:column}
+
+/* ---------- ボタン ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;text-decoration:none;font:inherit;font-weight:700;border:0;cursor:pointer;border-radius:999px;background:var(--orange);color:#fff;box-shadow:0 4px 0 var(--orange-d);transition:transform .15s,box-shadow .15s;line-height:1.35;text-align:center;-webkit-tap-highlight-color:transparent}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--orange-d)}
+.btn:focus-visible{outline:3px solid #FFC58F;outline-offset:3px}
+.btn__arrow{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.28);display:grid;place-items:center;flex:none}
+.btn__arrow svg{width:12px;height:12px}
+
+/* ---------- 1枚目：画像 ---------- */
+.fv{position:relative}
+.fv__img{width:100%;height:auto}
+/* 画像の「？？？」（1080×1350 基準で x105〜379 / y670〜797。桁は x124-188 / 213-277 / 302-367、ink は y682〜785）を
+   同じ背景色で覆って、その上で数字を回す */
+.fv__q{position:absolute;left:9.722%;top:49.630%;width:25.370%;height:9.407%;background:#FDFDFD;display:flex;align-items:center;font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:700;font-size:min(12.4vw,59.5px);line-height:1;color:var(--brown);overflow:hidden}
+.fv__q span{flex:1;display:block;text-align:center;padding-top:.04em}
+
+/* ---------- 設問 ---------- */
+.quizwrap{padding:16px 12px 36px;flex:1}
+.quiz{background:#fff;border-radius:14px;border:1px solid #EAE3D7;box-shadow:0 8px 28px rgba(30,50,80,.10)}
+/* 見出しは紺ベース＋金の縁取り（結果ページの配色に合わせる） */
+.quiz__head{background:#04255B;border-radius:13px 13px 0 0;border-bottom:2px solid #D9B172;box-shadow:inset 0 0 0 1px rgba(217,177,114,.5);text-align:center;padding:20px 16px 17px;color:#fff}
+.quiz__eyebrow{display:flex;align-items:center;justify-content:center;gap:13px;margin:0 0 9px;font-size:11px;font-weight:400;letter-spacing:.18em;color:#E8CE95}
+.quiz__eyebrow::before,.quiz__eyebrow::after{font-size:15px;font-weight:400;line-height:1;letter-spacing:0;color:#E8CE95}
+/* 文字の字送りで右側だけ広く見えるのを相殺 */
+.quiz__eyebrow::after{margin-left:-2px}
+.quiz__eyebrow::before{content:"＼"}
+.quiz__eyebrow::after{content:"／"}
+.quiz__title{margin:0;font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:500;font-size:19px;line-height:1.42;letter-spacing:0;color:#fff}
+.quiz__title em{color:#F2D592;font-weight:600}
+
+/* 回答中は画面上部に貼り付く */
+.progress{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.97);padding:10px 16px;border-bottom:1px solid #EDF1F6}
+.progress__meta{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.progress__count{color:var(--navy);font-size:14px}
+.progress__track{height:9px;border-radius:999px;background:#E7EDF4;overflow:hidden}
+.progress__bar{height:100%;width:5%;border-radius:inherit;background:linear-gradient(90deg,#E8CE95,#C9A24A);transition:width .45s ease}
+.quiz__body{padding:0 16px 22px}
+
+.step{padding:20px 0 4px;border-top:1px dashed #D5DFEA}
+.step[data-step="0"]{border-top:0}
+.step.is-new{animation:reveal .45s ease both}
+@keyframes reveal{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.bot{display:flex;align-items:flex-end;gap:9px;margin-bottom:12px}
+.bot__avatar{width:44px;height:44px;border-radius:50%;background:#F1F4F8;border:2px solid #E7DFD1;flex:none;overflow:hidden}
+.bot__avatar img{width:100%;height:100%;object-fit:cover}
+.bot__bubble{margin:0;background:#F1F4F8;border-radius:14px 14px 14px 4px;padding:9px 13px;font-size:13.5px;line-height:1.6}
+
+.qtitle{margin:0 0 12px;font-size:17px;font-weight:700;line-height:1.5;color:var(--navy)}
+.qtitle:focus{outline:none}
+.qtitle__num{color:var(--navy);font-weight:900;margin-right:6px;font-size:1.1em}
+
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.opt{position:relative;display:flex;align-items:center;gap:8px;min-height:54px;padding:10px 8px 10px 12px;border:2px solid #C9D9E8;border-radius:10px;background:#fff;cursor:pointer;font-weight:700;font-size:14px;line-height:1.35;transition:border-color .15s,background-color .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.opt__text{word-break:auto-phrase;text-wrap:balance}
+.opt__mark{width:20px;height:20px;border-radius:50%;border:2px solid #A9BFD4;flex:none;display:grid;place-items:center;transition:background-color .15s,border-color .15s}
+.opt__mark::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff;transform:scale(0);transition:transform .15s}
+.opt.is-checked{border-color:var(--blue);background:#EEF6FF;box-shadow:inset 0 0 0 1px var(--blue)}
+.opt.is-checked .opt__mark{border-color:var(--blue);background:var(--blue)}
+.opt.is-checked .opt__mark::after{transform:scale(1)}
+.opt input:focus-visible ~ .opt__mark{outline:3px solid rgba(27,100,173,.35);outline-offset:2px}
+@media (max-width:340px){.opts{grid-template-columns:1fr}}
+
+/* ---------- 回答完了 → 診断結果へ ---------- */
+.cta{width:100%;font-size:20px;padding:18px 12px 18px 38px;margin-top:4px;animation:ctaPulse 1.8s ease-in-out infinite}
+.cta:active{animation:none}
+@keyframes ctaPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+
+/* ---------- フッター ---------- */
+.footer{background:#0E2A4D;color:#C9D6E6;font-size:11px;padding:16px 16px calc(16px + env(safe-area-inset-bottom));text-align:center}
+.footer__links{display:flex;justify-content:center;gap:18px;margin:0 0 6px;padding:0;list-style:none}
+.footer__links a{color:#fff}
+.footer__copy{margin:0}
+
+@media (prefers-reduced-motion:reduce){
+  .step.is-new,.cta,.cta::before{animation:none}
+  .progress__bar{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 1枚目の画像。「？？？」の上に動く数字を重ねている（位置は画像 1024×1536 基準の％） -->
+  <div class="fv">
+    <img class="fv__img" src="assets/fv.jpg?v=2" width="1080" height="1350" fetchpriority="high" alt="かんたん1分 不動産投資 収入シミュレーション診断 あなたの目指せる収入は？？？万円です">
+    <div class="fv__q" aria-hidden="true"><span>?</span><span>?</span><span>?</span></div>
+  </div>
+
+  <div class="quizwrap">
+    <div class="quiz" id="quiz">
+      <div class="quiz__head">
+        <p class="quiz__eyebrow">全8問・簡単1分で完了</p>
+        <h1 class="quiz__title">質問に答えると<br><em>あなたの目指せる収入</em>がわかります</h1>
+      </div>
+      <div class="progress" id="progress" aria-live="polite">
+        <div class="progress__meta"><span class="progress__count" id="progCount">回答済み 0 / 8</span><span id="progRemain">あと8問</span></div>
+        <div class="progress__track"><div class="progress__bar" id="progBar"></div></div>
+      </div>
+
+      <form class="quiz__body" id="quizForm">
+        <!-- Q1〜Q8 はスクリプトで生成。回答するたびに次の設問が下に追加される -->
+
+        <section class="step finish" data-step="8" hidden>
+          <div class="bot">
+            <span class="bot__avatar" aria-hidden="true"><img src="assets/advisor.jpg" alt="" width="88" height="88"></span>
+            <p class="bot__bubble">おつかれさまでした！<br>回答をもとに、診断結果をまとめました。</p>
+          </div>
+          <a class="btn cta" id="ctaResult" href="result.html">診断結果を見る<span class="btn__arrow"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2l4 4-4 4"/></svg></span></a>
+        </section>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <ul class="footer__links">
+      <li><a data-privacy href="#" target="_blank" rel="noopener">個人情報保護方針</a></li>
+      <li><a data-company href="#" target="_blank" rel="noopener">運営会社</a></li>
+    </ul>
+    <p class="footer__copy">&copy; 運営会社名</p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ===== 設定（ここを書き換えればOK）=====
+  var CONFIG = {
+    // 「診断結果を見る」の移動先（診断中ページ。2秒後に result.html へ自動で移動する）
+    resultUrl: 'loading.html',
+    // 回答の送信先（Google Apps Script のウェブアプリ URL など）。空欄なら送信しない
+    submitUrl: '',
+    privacyUrl: '#',
+    companyUrl: '#',
+    // 回答してから次の設問が出るまでの間（ミリ秒）
+    revealDelay: 300,
+    // FVの「？？？」の部分で数字を回し続けるか（false で画像の「？？？」のまま）
+    fvRoll: true
+  };
+  // 回答を結果ページへ渡すときの保存名（result.html と合わせる）
+  var STORAGE_KEY = 'fudosan_diagnosis';
+
+  var QUESTIONS = [
+    { name: 'age', msg: 'まずは、あなたのことを教えてください。',
+      q: 'あなたの年齢を教えてください',
+      opts: ['20代', '30代', '40代', '50代', '60代以上'] },
+    { name: 'work', msg: '働き方によって、利用できるローンの選択肢が変わります。',
+      q: '現在の働き方を教えてください',
+      opts: ['会社員', '公務員', '会社経営・役員', '自営業・フリーランス', 'その他'] },
+    { name: 'income', msg: '年収は、ローンの借入額を考えるときの目安になります。',
+      q: '現在の年収に近いものを教えてください',
+      opts: ['400万円未満', '400〜599万円', '600〜799万円', '800〜999万円', '1,000〜1,499万円', '1,500万円以上'] },
+    { name: 'tenure', msg: '勤続年数も、金融機関の審査で確認されるポイントです。',
+      q: '現在の勤務先で何年くらい働いていますか？',
+      opts: ['1年未満', '1〜3年', '3〜5年', '5〜10年', '10年以上'] },
+    { name: 'assets', msg: '自己資金の目安を確認させてください。',
+      q: '現在の貯蓄・金融資産はどのくらいですか？',
+      opts: ['100万円未満', '100〜299万円', '300〜499万円', '500〜999万円', '1,000万円以上'] },
+    { name: 'loan', msg: '今の借入状況は、新たに借りられる金額に関わります。',
+      q: '現在、住宅ローンやその他の借入はありますか？',
+      opts: ['なし', '住宅ローンあり', 'その他のローンあり', '両方あり'] },
+    { name: 'goal', msg: '目標によって、考えるべき物件の規模が変わります。',
+      q: '不動産投資で、毎月どのくらいの収入を目指したいですか？',
+      opts: ['月5万円程度', '月10万円程度', '月20万円程度', '月30万円以上', 'まだ決めていない'] },
+    { name: 'timing', msg: 'いよいよ最後の質問です！',
+      q: '不動産投資を始めるなら、いつ頃を考えていますか？',
+      opts: ['すぐにでも', '半年以内', '1年以内', '良い物件があれば', 'まずは情報収集'] }
+  ];
+
+  var TOTAL = QUESTIONS.length;
+  var FINISH = TOTAL;
+  var revealed = 0;   // いま表示されている一番下のステップ
+
+  var form = document.getElementById('quizForm');
+  var progress = document.getElementById('progress');
+  var progCount = document.getElementById('progCount');
+  var progRemain = document.getElementById('progRemain');
+  var progBar = document.getElementById('progBar');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var ICON_ADVISOR = '<img src="assets/advisor.jpg" alt="" width="88" height="88">';
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function questionHtml(q, i) {
+    var opts = q.opts.map(function (o) {
+      return '<label class="opt"><input type="radio" name="' + q.name + '" value="' + esc(o) + '">' +
+        '<span class="opt__mark"></span><span class="opt__text">' + esc(o) + '</span></label>';
+    }).join('');
+    return '<section class="step" data-step="' + i + '"' + (i > 0 ? ' hidden' : '') + '>' +
+      '<div class="bot"><span class="bot__avatar" aria-hidden="true">' + ICON_ADVISOR + '</span>' +
+      '<p class="bot__bubble">' + esc(q.msg) + '</p></div>' +
+      '<p class="qtitle" id="qt' + i + '" tabindex="-1"><span class="qtitle__num">Q' + (i + 1) + '.</span>' + esc(q.q) + '</p>' +
+      '<div class="opts" role="radiogroup" aria-labelledby="qt' + i + '">' + opts + '</div></section>';
+  }
+
+  form.insertAdjacentHTML('afterbegin', QUESTIONS.map(questionHtml).join(''));
+  form.addEventListener('submit', function (e) { e.preventDefault(); });
+
+  function stepEl(i) { return form.querySelector('.step[data-step="' + i + '"]'); }
+  function answer(q) {
+    var c = form.querySelector('input[name="' + q.name + '"]:checked');
+    return c ? c.value : '';
+  }
+  function answeredCount() { return QUESTIONS.filter(answer).length; }
+
+  function updateProgress() {
+    var n = answeredCount();
+    if (n < TOTAL) {
+      progCount.textContent = '回答済み ' + n + ' / ' + TOTAL;
+      progRemain.textContent = 'あと' + (TOTAL - n) + '問';
+      progBar.style.width = Math.max(5, n / TOTAL * 100) + '%';
+    } else {
+      progCount.textContent = '回答完了！';
+      progRemain.textContent = '';
+      progBar.style.width = '100%';
+    }
+  }
+
+  // 新しく出したステップが、上に貼り付いた進捗バーのすぐ下に来るようにスクロール
+  function scrollToStep(el) {
+    var top = el.getBoundingClientRect().top + window.pageYOffset - progress.offsetHeight - 10;
+    if (top > window.pageYOffset) window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+
+  function reveal(index) {
+    var el = stepEl(index);
+    if (!el || !el.hidden) return;
+    el.hidden = false;
+    el.classList.add('is-new');
+    revealed = index;
+    var head = el.querySelector('[tabindex="-1"]');
+    if (head) head.focus({ preventScroll: true });
+    scrollToStep(el);
+    track('quiz_step', { step: index < TOTAL ? 'Q' + (index + 1) : 'finish' });
+  }
+
+  form.addEventListener('change', function (e) {
+    var input = e.target;
+    if (input.type !== 'radio') return;
+    var step = input.closest('.step');
+    var index = Number(step.getAttribute('data-step'));
+    step.querySelectorAll('.opt').forEach(function (label) {
+      label.classList.toggle('is-checked', label.querySelector('input').checked);
+    });
+    updateProgress();
+    track('quiz_answer', { question: QUESTIONS[index].name, answer: input.value });
+    // 一番下の設問に答えたときだけ次を出す（前の設問を選び直しても増えない）
+    if (index === revealed) {
+      setTimeout(function () { reveal(index + 1); }, CONFIG.revealDelay);
+    }
+  });
+
+  // ---- 診断結果へ ----
+  var cta = document.getElementById('ctaResult');
+  // 広告のパラメータ（utm 等）は結果ページにも引き継ぐ
+  cta.href = CONFIG.resultUrl + location.search;
+  cta.addEventListener('click', function (e) {
+    var missing = QUESTIONS.filter(function (q) { return !answer(q); });
+    if (missing.length) {
+      e.preventDefault();
+      stepEl(QUESTIONS.indexOf(missing[0])).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    var data = collect();
+    // 回答（年収・資産など）は URL に載せず、同じタブの sessionStorage で結果ページへ渡す
+    try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (_) { /* 保存できない環境では結果ページ側で案内 */ }
+    send(data);
+    track('result_click');
+  });
+
+  function collect() {
+    var data = {
+      answered_at: new Date().toISOString(),
+      page: location.href.split('#')[0]
+    };
+    QUESTIONS.forEach(function (q) { data[q.name] = answer(q); });
+    new URLSearchParams(location.search).forEach(function (v, k) {
+      if (/^(utm_|gclid|fbclid|yclid|twclid|ttclid)/.test(k)) data[k] = v;
+    });
+    return data;
+  }
+
+  function send(data) {
+    if (!CONFIG.submitUrl) return;
+    var params = new URLSearchParams(data);
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(CONFIG.submitUrl, params)) return;
+    } catch (_) { /* fetch で再送 */ }
+    fetch(CONFIG.submitUrl, { method: 'POST', mode: 'no-cors', body: params, keepalive: true }).catch(function () {});
+  }
+
+  function track(event, params) {
+    window.dataLayer = window.dataLayer || [];
+    var o = { event: event };
+    for (var k in params) o[k] = params[k];
+    window.dataLayer.push(o);
+  }
+
+  document.querySelectorAll('[data-privacy]').forEach(function (a) { a.href = CONFIG.privacyUrl; });
+  document.querySelectorAll('[data-company]').forEach(function (a) { a.href = CONFIG.companyUrl; });
+
+  // ---- FV の「？？？」の部分で数字を回し続ける ----
+  (function () {
+    var box = document.querySelector('.fv__q');
+    if (!box) return;
+    if (!CONFIG.fvRoll) { box.hidden = true; return; }
+    var cells = box.querySelectorAll('span');
+    function digit(i) {
+      // 先頭の桁は 0 にしない（「042万円」のようにならないように）
+      return String(i === 0 ? 1 + Math.floor(Math.random() * 9) : Math.floor(Math.random() * 10));
+    }
+    cells.forEach(function (cell, i) { cell.textContent = digit(i); });
+    if (reduceMotion) return;
+    // 桁ごとに速さを少しずらして、スロットのように見せる
+    cells.forEach(function (cell, i) {
+      setInterval(function () { cell.textContent = digit(i); }, 70 + i * 15);
+    });
+  })();
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>
