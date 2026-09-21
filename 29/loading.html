@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- LP 29 / CTA: https://www.mansiontoushi.com/owner/ -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>診断中｜不動産投資 収入シミュレーション診断</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!-- 結果ページの最初の画像を先に読み込んでおき、切り替わりを速くする -->
+<link rel="preload" as="image" href="../assets/result-fv.jpg">
+<!-- JavaScript が無効な場合でも 2 秒後に移動する -->
+<noscript><meta http-equiv="refresh" content="2;url=result.html"></noscript>
+<style>
+/* 診断中ページ。スマホ専用・PCでは中央にスマホ幅で表示 */
+:root{
+  --navy:#123F74;
+  --blue:#1B64AD;
+  --sky:#E4F1FF;
+  --brown:#A05634;
+  --gold:#D9B172;
+  --text:#2B2F36;
+  --muted:#6B7280;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;color:var(--text);background:#DDE3EA;line-height:1.7;font-size:16px}
+img{display:block;max-width:100%}
+
+.page{max-width:480px;min-height:100vh;margin:0 auto;background:var(--sky);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px calc(32px + env(safe-area-inset-bottom));text-align:center}
+
+/* ぐるぐる回る輪 */
+.ring{width:86px;height:86px;border-radius:50%;border:6px solid #D4E2F2;border-top-color:var(--brown);border-right-color:var(--gold);animation:spin 1s linear infinite;margin-bottom:26px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.msg{margin:0;font-size:19px;font-weight:700;line-height:1.75;color:var(--navy);letter-spacing:.02em}
+.msg em{font-style:normal;color:var(--brown);font-weight:900}
+.dots i{font-style:normal;animation:blink 1.2s infinite}
+.dots i:nth-child(2){animation-delay:.2s}
+.dots i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.2}40%{opacity:1}}
+
+/* 進み具合のバー（2秒で満ちる） */
+.bar{width:100%;max-width:280px;height:8px;border-radius:999px;background:#D9E4F0;overflow:hidden;margin:26px 0 12px}
+.bar span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--gold),var(--brown));animation:fill 2s ease-out forwards}
+@keyframes fill{to{width:100%}}
+
+.note{margin:0;font-size:12px;color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){
+  .ring{animation:none;border-top-color:var(--brown)}
+  .dots i{animation:none;opacity:1}
+  .bar span{animation:none;width:100%}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="ring" aria-hidden="true"></div>
+  <p class="msg" role="status" aria-live="polite">あなたが不動産投資で<br>目指せる収入を<em>診断中</em><span class="dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></p>
+  <div class="bar" aria-hidden="true"><span></span></div>
+  <p class="note">そのままお待ちください</p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // 表示しておく時間（ミリ秒）
+  var WAIT = 2000;
+
+  // 広告のパラメータ（utm 等）は結果ページへ引き継ぐ
+  var next = 'result.html' + location.search;
+
+  // replace で移動するので、結果ページから「戻る」を押してもこのページには戻らない
+  setTimeout(function () { location.replace(next); }, WAIT);
+})();
+</script>
+</body>
+</html>
