@@ -108,10 +108,6 @@ em{font-style:normal}
 @keyframes ctaPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
 
 /* ---------- フッター ---------- */
-.footer{background:#0E2A4D;color:#C9D6E6;font-size:11px;padding:16px 16px calc(16px + env(safe-area-inset-bottom));text-align:center}
-.footer__links{display:flex;justify-content:center;gap:18px;margin:0 0 6px;padding:0;list-style:none}
-.footer__links a{color:#fff}
-.footer__copy{margin:0}
 
 @media (prefers-reduced-motion:reduce){
   .step.is-new,.cta,.cta::before{animation:none}
@@ -153,13 +149,6 @@ em{font-style:normal}
     </div>
   </div>
 
-  <footer class="footer">
-    <ul class="footer__links">
-      <li><a data-privacy href="#" target="_blank" rel="noopener">個人情報保護方針</a></li>
-      <li><a data-company href="#" target="_blank" rel="noopener">運営会社</a></li>
-    </ul>
-    <p class="footer__copy">&copy; 運営会社名</p>
-  </footer>
 
 </div>
 
@@ -173,8 +162,6 @@ em{font-style:normal}
     resultUrl: 'loading.html',
     // 回答の送信先（Google Apps Script のウェブアプリ URL など）。空欄なら送信しない
     submitUrl: '',
-    privacyUrl: '#',
-    companyUrl: '#',
     // 回答してから次の設問が出るまでの間（ミリ秒）
     revealDelay: 300,
     // FVの「？？？」の部分で数字を回し続けるか（false で画像の「？？？」のまま）
@@ -344,8 +331,6 @@ em{font-style:normal}
     window.dataLayer.push(o);
   }
 
-  document.querySelectorAll('[data-privacy]').forEach(function (a) { a.href = CONFIG.privacyUrl; });
-  document.querySelectorAll('[data-company]').forEach(function (a) { a.href = CONFIG.companyUrl; });
 
   // ---- FV の「？？？」の部分で数字を回し続ける ----
   (function () {
